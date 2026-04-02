@@ -113,5 +113,40 @@ namespace TryCash_Alternativas.Vistas
         {
             CargarDatos();
         }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            db.LimpiarHistorial();
+            MessageBox.Show("Historial eliminado.");
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (dgvHistorial.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecciona al menos una fila.");
+                return;
+            }
+
+            if (MessageBox.Show("¿Seguro que deseas eliminar los registros seleccionados?",
+                "Confirmar", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            try
+            {
+                foreach (DataGridViewRow row in dgvHistorial.SelectedRows)
+                {
+                    int id = Convert.ToInt32(row.Cells["ID"].Value);
+                    db.EliminarEscenario(id);
+                }
+
+                MessageBox.Show("Registros eliminados correctamente.");
+                CargarDatos(); // refresca el grid
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar: " + ex.Message);
+            }
+        }
     }
 }

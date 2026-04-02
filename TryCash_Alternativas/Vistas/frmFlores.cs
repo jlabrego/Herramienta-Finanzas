@@ -1,11 +1,12 @@
-﻿using System;
-using System.Windows.Forms;
-using TryCash_Alternativas.Modelos;
-using TryCash_Alternativas.Logica;
-using TryCash_Alternativas.Datos;
-using iTextSharp.text;
+﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System;
+using System.Drawing.Drawing2D;
 using System.IO;
+using System.Windows.Forms;
+using TryCash_Alternativas.Datos;
+using TryCash_Alternativas.Logica;
+using TryCash_Alternativas.Modelos;
 namespace TryCash_Alternativas.Vistas
 {
     public partial class frmFlores : Form
@@ -14,6 +15,7 @@ namespace TryCash_Alternativas.Vistas
         {
             InitializeComponent();
         }
+
         public void GenerarReportePDF(Alternativa alt, decimal utilidad, decimal gsp)
         {
             Document doc = new Document(PageSize.A4);
@@ -177,14 +179,14 @@ namespace TryCash_Alternativas.Vistas
                 lblUtilidadMenos.Text = $"Si precio baja 4%: {utilMenos4:C2}";
 
                 decimal gspPrecio = Math.Abs(((utilMas4 - utilidad) / utilidad) / 0.04m);
-                lblGSP.Text = "GSP Precio: " + gspPrecio.ToString("N2");
+                lblGSP.Text = gspPrecio.ToString("N2");
 
                 decimal ingresosMas = alt.RamosProducidos * area * (alt.PrecioVentaUnitario * 1.04m) * tasaConDev;
                 decimal gastosMas = ingresosMas - utilMas4;
                 decimal rentMas4 = (gastosMas != 0) ? (utilMas4 / gastosMas) * 100 : 0;
 
                 decimal gspRent = Math.Abs(((rentMas4 - rentBase) / rentBase) / 0.04m);
-                lblGSPRent.Text = "GSP Rentabilidad: " + gspRent.ToString("N2");
+                lblGSPRent.Text = gspRent.ToString("N2");
 
                 var altRamos = new Alternativa
                 {
@@ -200,14 +202,18 @@ namespace TryCash_Alternativas.Vistas
                 decimal utilRamos = calculadora.CalcularUtilidad(
                     altRamos, salario, 0.18m, 0.22m, dolar, 4130m, area, meses, arriendoHec);
 
+                decimal tasaBaseR = altRamos.Nombre.ToLower().Contains("francia") ? 4130m : dolar;
+                decimal tasaConDevR = tasaBaseR * (1 + altRamos.DevaluacionEsperada);
+
                 decimal ingresosRamos = altRamos.RamosProducidos * area *
-                                        altRamos.PrecioVentaUnitario * tasaConDev;
+                                        altRamos.PrecioVentaUnitario * tasaConDevR;
 
                 decimal gastosRamos = ingresosRamos - utilRamos;
+
                 decimal rentRamos = (utilRamos / gastosRamos) * 100;
 
                 decimal gspRamos = Math.Abs(((rentRamos - rentBase) / rentBase) / 0.04m);
-                lblGSPRamos.Text = "GSP Ramos: " + gspRamos.ToString("N2");
+                lblGSPRamos.Text = gspRamos.ToString("N2");
 
                 decimal utilSalario = calculadora.CalcularSensibilidadSalario(
                     alt, 0.04m, salario, dolar, area, meses, arriendoHec);
@@ -333,11 +339,14 @@ namespace TryCash_Alternativas.Vistas
             txtComision.Clear();
             txtDevaluacion.Clear();
             txtEmbalaje.Clear();
-
-            lblUtilidad.Text = "$0.00";
-            lblUtilidadMas.Text = "Si precio sube 4%: $0.00";
-            lblUtilidadMenos.Text = "Si precio baja 4%: $0.00";
+            cmbAlternativa.Text = "";
+            lblUtilidad.Text = "0.00";
+            lblUtilidadMas.Text = "Si precio sube 4%: 0.00";
+            lblUtilidadMenos.Text = "Si precio baja 4%: 0.00";
             lblGSP.Text = "GSP Precio: 0.00";
+            lblGSPRamos.Text = "0.00";
+            lblGSPRent.Text = "0.00";
+            lblConclusion.Text = ".";
             txtRamos.Focus();
         }
         private void btnVerHistorial_Click(object sender, EventArgs e)
@@ -368,6 +377,10 @@ namespace TryCash_Alternativas.Vistas
 
         }
 
+        private void frmFlores_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

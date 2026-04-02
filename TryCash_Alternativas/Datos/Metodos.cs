@@ -94,5 +94,53 @@ namespace TryCash_Alternativas.Datos
             }
             return tabla;
         }
+        public void LimpiarHistorial()
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(@"
+            DELETE FROM ResultadosSensibilidad;
+            DELETE FROM Alternativas;", conn);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public void EliminarEscenario(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            {
+                conn.Open();
+
+                SqlTransaction trans = conn.BeginTransaction();
+
+                try
+                {
+                    // Primero borrar resultados (por FK)
+                    SqlCommand cmd1 = new SqlCommand(
+                        "DELETE FROM ResultadosSensibilidad WHERE id_alternativa = @id",
+                        conn, trans);
+
+                    cmd1.Parameters.AddWithValue("@id", id);
+                    cmd1.ExecuteNonQuery();
+
+                    // Luego borrar alternativa
+                    SqlCommand cmd2 = new SqlCommand(
+                        "DELETE FROM Alternativas WHERE id_alternativa = @id",
+                        conn, trans);
+
+                    cmd2.Parameters.AddWithValue("@id", id);
+                    cmd2.ExecuteNonQuery();
+
+                    trans.Commit();
+                }
+                catch
+                {
+                    trans.Rollback();
+                    throw;
+                }
+            }
+        }
     }
 }
