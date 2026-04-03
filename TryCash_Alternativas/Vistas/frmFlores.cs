@@ -1,4 +1,5 @@
-﻿using iTextSharp.text;
+﻿using DocumentFormat.OpenXml.VariantTypes;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Drawing.Drawing2D;
@@ -46,9 +47,8 @@ namespace TryCash_Alternativas.Vistas
                 table.AddCell("Rentabilidad Estimada:");
 
                 decimal rentabilidad = 0;
-
-                // Recalculamos ingresos igual que en el guardado
-                decimal tasaBase = alt.Nombre.ToLower().Contains("francia") ? 4130m : 1m; 
+                decimal dolarVal = decimal.Parse(txtDolar.Text);
+                decimal tasaBase = alt.Nombre.ToLower().Contains("francia") ? 4130m : dolarVal; 
                 decimal tasaConDev = tasaBase * (1 + alt.DevaluacionEsperada);
                 decimal ramosTotales = alt.RamosProducidos * alt.AreaHectareas;
                 decimal ingresos = ramosTotales * alt.PrecioVentaUnitario * tasaConDev;
@@ -141,7 +141,6 @@ namespace TryCash_Alternativas.Vistas
                 }
 
                 alt.Nombre = cmbAlternativa.SelectedItem.ToString();
-
                 alt.RamosProducidos = int.Parse(txtRamos.Text);
                 alt.PrecioVentaUnitario = decimal.Parse(txtPrecio.Text);
                 alt.NumeroOperarios = int.Parse(txtOperarios.Text);
@@ -155,78 +154,95 @@ namespace TryCash_Alternativas.Vistas
                 decimal meses = decimal.Parse(txtMeses.Text);
                 decimal arriendoHec = decimal.Parse(txtArriendoHec.Text);
 
-                decimal utilidad = calculadora.CalcularUtilidad(
+                decimal resultado = calculadora.CalcularUtilidad(
                     alt, salario, 0.18m, 0.22m, dolar, 4130m, area, meses, arriendoHec);
 
-                lblUtilidad.Text = utilidad.ToString("C2");
+                lblUtilidad.Text = resultado.ToString("C2");
 
                 decimal tasaBase = alt.Nombre.ToLower().Contains("francia") ? 4130m : dolar;
                 decimal tasaConDev = tasaBase * (1 + alt.DevaluacionEsperada);
+                decimal ramosTotales = alt.RamosProducidos * area;
+                decimal ingresos = ramosTotales * alt.PrecioVentaUnitario * tasaConDev;
+                decimal gastos = ingresos - resultado;
 
-                decimal ingresos = alt.RamosProducidos * area * alt.PrecioVentaUnitario * tasaConDev;
-                decimal gastos = ingresos - utilidad;
+                decimal rentabilidad = 0;
+                if (gastos != 0)
+                {
+                    rentabilidad = (resultado / gastos) * 100;
+                }
 
-                decimal rentabilidad = (gastos != 0) ? (utilidad / gastos) * 100 : 0;
                 decimal rentBase = rentabilidad;
 
-                decimal utilMas4 = calculadora.CalcularSensibilidad(
+                decimal utilidadMas4 = calculadora.CalcularSensibilidad(
                     alt, 0.04m, salario, dolar, area, meses, arriendoHec);
 
-                decimal utilMenos4 = calculadora.CalcularSensibilidad(
+                decimal utilidadMenos4 = calculadora.CalcularSensibilidad(
                     alt, -0.04m, salario, dolar, area, meses, arriendoHec);
 
-                lblUtilidadMas.Text = $"Si precio sube 4%: {utilMas4:C2}";
-                lblUtilidadMenos.Text = $"Si precio baja 4%: {utilMenos4:C2}";
+                lblUtilidadMas.Text = "Si precio sube 4%: " + utilidadMas4.ToString("C2");
+                lblUtilidadMenos.Text = "Si precio baja 4%: " + utilidadMenos4.ToString("C2");
 
-                decimal gspPrecio = Math.Abs(((utilMas4 - utilidad) / utilidad) / 0.04m);
-                lblGSP.Text = gspPrecio.ToString("N2");
-
-                decimal ingresosMas = alt.RamosProducidos * area * (alt.PrecioVentaUnitario * 1.04m) * tasaConDev;
-                decimal gastosMas = ingresosMas - utilMas4;
-                decimal rentMas4 = (gastosMas != 0) ? (utilMas4 / gastosMas) * 100 : 0;
-
-                decimal gspRent = Math.Abs(((rentMas4 - rentBase) / rentBase) / 0.04m);
-                lblGSPRent.Text = gspRent.ToString("N2");
-
-                var altRamos = new Alternativa
+                decimal gspPrecio = 0;
+                if (resultado != 0)
                 {
-                    Nombre = alt.Nombre,
-                    RamosProducidos = (int)(alt.RamosProducidos * 1.04m),
-                    PrecioVentaUnitario = alt.PrecioVentaUnitario,
-                    NumeroOperarios = alt.NumeroOperarios,
-                    ComisionVentasPct = alt.ComisionVentasPct,
-                    CostoEmbalajeUnitario = alt.CostoEmbalajeUnitario,
-                    DevaluacionEsperada = alt.DevaluacionEsperada
-                };
+                    gspPrecio = Math.Abs(((utilidadMas4 - resultado) / resultado) / 0.04m);
+                    lblGSP.Text = gspPrecio.ToString("N2");
+                }
 
-                decimal utilRamos = calculadora.CalcularUtilidad(
-                    altRamos, salario, 0.18m, 0.22m, dolar, 4130m, area, meses, arriendoHec);
+                decimal ingresosMas = ramosTotales * (alt.PrecioVentaUnitario * 1.04m) * tasaConDev;
+                decimal gastosMas = ingresosMas - utilidadMas4;
 
-                decimal tasaBaseR = altRamos.Nombre.ToLower().Contains("francia") ? 4130m : dolar;
-                decimal tasaConDevR = tasaBaseR * (1 + altRamos.DevaluacionEsperada);
+                decimal rentMas4 = (gastosMas != 0) ? (utilidadMas4 / gastosMas) * 100 : 0;
 
-                decimal ingresosRamos = altRamos.RamosProducidos * area *
-                                        altRamos.PrecioVentaUnitario * tasaConDevR;
+                decimal gspRentabilidad = 0;
+                if (rentBase != 0)
+                {
+                    gspRentabilidad = Math.Abs(((rentMas4 - rentBase) / rentBase) / 0.04m);
+                }
+                lblGSPRent.Text = gspRentabilidad.ToString("N2");
 
-                decimal gastosRamos = ingresosRamos - utilRamos;
+                decimal utilidadRamos = calculadora.CalcularSensibilidadRamos(
+                    alt, 0.04m, salario, dolar, area, meses, arriendoHec);
 
-                decimal rentRamos = (utilRamos / gastosRamos) * 100;
+                int nuevosRamos = (int)(alt.RamosProducidos * 1.04m);
 
-                decimal gspRamos = Math.Abs(((rentRamos - rentBase) / rentBase) / 0.04m);
+                decimal utilidadMas = calculadora.CalcularSensibilidadRamos(alt, 0.04m, salario, dolar, area, meses, arriendoHec);
+                decimal utilidadMenos = calculadora.CalcularSensibilidadRamos(alt, -0.04m, salario, dolar, area, meses, arriendoHec);
+
+                decimal gspRamos = 0;
+
+                if (resultado != 0)
+                {
+                    gspRamos = Math.Abs(((utilidadMas - utilidadMenos) / resultado) / 0.08m);
+                }
+
+                if (alt.Nombre.ToLower().Contains("francia"))
+                {
+                    gspRamos = gspPrecio;
+                }
+
                 lblGSPRamos.Text = gspRamos.ToString("N2");
 
                 decimal utilSalario = calculadora.CalcularSensibilidadSalario(
                     alt, 0.04m, salario, dolar, area, meses, arriendoHec);
 
-                decimal gspSalario = Math.Abs(((utilSalario - utilidad) / utilidad) / 0.04m);
+                decimal gspSalario = 0;
+                if (resultado != 0)
+                {
+                    gspSalario = Math.Abs(((utilSalario - resultado) / resultado) / 0.04m);
+                }
 
-                string conclusion = rentabilidad >= 10
-                    ? "La alternativa es viable.\n"
-                    : "La alternativa NO es viable.\n";
+                string conclusion = "";
 
-                conclusion += gspPrecio > gspSalario
-                    ? "El precio es la variable más sensible."
-                    : "El salario es la variable más sensible.";
+                if (rentabilidad >= 10)
+                    conclusion += "La alternativa es viable.\n";
+                else
+                    conclusion += "La alternativa NO es viable.\n";
+
+                if (gspPrecio > gspSalario)
+                    conclusion += "El precio es la variable más sensible.\n";
+                else
+                    conclusion += "El salario es la variable más sensible.\n";
 
                 lblConclusion.Text = conclusion;
             }
@@ -240,21 +256,20 @@ namespace TryCash_Alternativas.Vistas
             try
             {
                 var calculadora = new CalculadoraFinanciera();
-
-                Alternativa escenarioActual = new Alternativa
-                {
-                    Nombre = cmbAlternativa.SelectedItem.ToString(),
-                    RamosProducidos = int.Parse(txtRamos.Text),
-                    PrecioVentaUnitario = decimal.Parse(txtPrecio.Text),
-                    NumeroOperarios = int.Parse(txtOperarios.Text),
-                    ComisionVentasPct = decimal.Parse(txtComision.Text),
-                    CostoEmbalajeUnitario = decimal.Parse(txtEmbalaje.Text),
-                    DevaluacionEsperada = decimal.Parse(txtDevaluacion.Text),
-                    InversionEquipos = decimal.Parse(txtInversion.Text),
-                    ArrendamientoMensual = decimal.Parse(txtArriendoHec.Text),
-                    DuracionMeses = int.Parse(txtMeses.Text),
-                    AreaHectareas = int.Parse(txtArea.Text)
-                };
+    Alternativa escenarioActual = new Alternativa
+    {
+        Nombre = cmbAlternativa.SelectedItem.ToString(),
+        RamosProducidos = int.Parse(txtRamos.Text),
+        PrecioVentaUnitario = decimal.Parse(txtPrecio.Text),
+        NumeroOperarios = int.Parse(txtOperarios.Text),
+        ComisionVentasPct = decimal.Parse(txtComision.Text),
+        CostoEmbalajeUnitario = decimal.Parse(txtEmbalaje.Text),
+        DevaluacionEsperada = decimal.Parse(txtDevaluacion.Text),
+        InversionEquipos = decimal.Parse(txtInversion.Text),
+        ArrendamientoMensual = decimal.Parse(txtArriendoHec.Text),
+        DuracionMeses = int.Parse(txtMeses.Text),
+        AreaHectareas = int.Parse(txtArea.Text)
+    };
 
                 decimal salario = decimal.Parse(txtSalarioMin.Text);
                 decimal dolar = decimal.Parse(txtDolar.Text);
@@ -275,43 +290,42 @@ namespace TryCash_Alternativas.Vistas
                                        escenarioActual.PrecioVentaUnitario * tasaConDev;
 
                 decimal gastosBase = ingresosBase - utilidadBase;
-                decimal rentBase = (utilidadBase / gastosBase) * 100;
+                decimal rentBase = (gastosBase != 0) ? (utilidadBase / gastosBase) * 100 : 0;
 
                 escenarioActual.RentabilidadPct = rentBase;
 
-                decimal utilPrecio = calculadora.CalcularSensibilidad(
+                decimal utilPrecioMas = calculadora.CalcularSensibilidad(
                     escenarioActual, 0.04m, salario, dolar,
                     escenarioActual.AreaHectareas,
                     escenarioActual.DuracionMeses,
                     escenarioActual.ArrendamientoMensual);
 
-                escenarioActual.GspPrecio = Math.Abs(((utilPrecio - utilidadBase) / utilidadBase) / 0.04m);
+                escenarioActual.GspPrecio = (utilidadBase != 0)
+                    ? Math.Abs(((utilPrecioMas - utilidadBase) / utilidadBase) / 0.04m)
+                    : 0;
 
-                var altRamos = new Alternativa
-                {
-                    Nombre = escenarioActual.Nombre,
-                    RamosProducidos = (int)(escenarioActual.RamosProducidos * 1.04m),
-                    PrecioVentaUnitario = escenarioActual.PrecioVentaUnitario,
-                    NumeroOperarios = escenarioActual.NumeroOperarios,
-                    ComisionVentasPct = escenarioActual.ComisionVentasPct,
-                    CostoEmbalajeUnitario = escenarioActual.CostoEmbalajeUnitario,
-                    DevaluacionEsperada = escenarioActual.DevaluacionEsperada
-                };
-
-                decimal utilRamos = calculadora.CalcularUtilidad(
-                    altRamos, salario, 0.18m, 0.22m, dolar, 4130m,
+                decimal utilMas = calculadora.CalcularSensibilidadRamos(
+                    escenarioActual, 0.04m, salario, dolar,
                     escenarioActual.AreaHectareas,
                     escenarioActual.DuracionMeses,
                     escenarioActual.ArrendamientoMensual);
 
-                decimal ingresosR = altRamos.RamosProducidos *
-                                    escenarioActual.AreaHectareas *
-                                    altRamos.PrecioVentaUnitario * tasaConDev;
+                decimal utilMenos = calculadora.CalcularSensibilidadRamos(
+                    escenarioActual, -0.04m, salario, dolar,
+                    escenarioActual.AreaHectareas,
+                    escenarioActual.DuracionMeses,
+                    escenarioActual.ArrendamientoMensual);
 
-                decimal gastosR = ingresosR - utilRamos;
-                decimal rentRamos = (utilRamos / gastosR) * 100;
+                decimal gspRamos = (utilidadBase != 0)
+                    ? Math.Abs(((utilMas - utilMenos) / utilidadBase) / 0.08m)
+                    : 0;
 
-                escenarioActual.GspRamos = Math.Abs(((rentRamos - rentBase) / rentBase) / 0.04m);
+                if (escenarioActual.Nombre.ToLower().Contains("francia"))
+                {
+                    gspRamos = escenarioActual.GspPrecio;
+                }
+
+                escenarioActual.GspRamos = gspRamos;
 
                 decimal utilSalario = calculadora.CalcularSensibilidadSalario(
                     escenarioActual, 0.04m, salario, dolar,
@@ -319,7 +333,9 @@ namespace TryCash_Alternativas.Vistas
                     escenarioActual.DuracionMeses,
                     escenarioActual.ArrendamientoMensual);
 
-                escenarioActual.GspSalario = Math.Abs(((utilSalario - utilidadBase) / utilidadBase) / 0.04m);
+                escenarioActual.GspSalario = (utilidadBase != 0)
+                    ? Math.Abs(((utilSalario - utilidadBase) / utilidadBase) / 0.04m)
+                    : 0;
 
                 MetodosDatos db = new MetodosDatos();
                 db.GuardarEscenario(escenarioActual);
@@ -330,7 +346,8 @@ namespace TryCash_Alternativas.Vistas
             {
                 MessageBox.Show("Error al guardar: " + ex.Message);
             }
-        }
+}
+
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtRamos.Clear();
@@ -380,6 +397,15 @@ namespace TryCash_Alternativas.Vistas
         private void frmFlores_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnVerResumen_Click(object sender, EventArgs e)
+        {
+            // 1. Instanciamos el formulario que diseñamos con el DataGridView gris
+            frmResumenSensibilidad pantallaGSP = new frmResumenSensibilidad();
+
+            // 2. Lo abrimos para que bloquee la ventana de atrás hasta que se cierre
+            pantallaGSP.ShowDialog();
         }
     }
 

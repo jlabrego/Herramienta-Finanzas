@@ -6,16 +6,14 @@ namespace TryCash_Alternativas.Modelos
     {
         // --- IDENTIFICADORES (Tablas Alternativas/Proyectos) ---
         public int Id { get; set; }
-        public int IdProyecto { get; set; } // FK necesaria para el punto (f)
+        public int IdProyecto { get; set; } 
         public string Nombre { get; set; }
-        public int RamosProducidos { get; set; }
+        public decimal RamosProducidos { get; set; }
         public decimal PrecioVentaUnitario { get; set; }
         public decimal CostoInsumos { get; set; } 
         public int NumeroOperarios { get; set; }
         public decimal InversionEquipos { get; set; } 
         public decimal ArrendamientoMensual { get; set; } 
-
-        // Datos del ALTER TABLE
         public int DuracionMeses { get; set; } 
         public int AreaHectareas { get; set; } 
         public decimal ComisionVentasPct { get; set; }

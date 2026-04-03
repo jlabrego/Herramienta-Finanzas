@@ -113,6 +113,12 @@
     <Compile Include="Vistas\frmHistorial.Designer.cs">
       <DependentUpon>frmHistorial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\frmResumenSensibilidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\frmResumenSensibilidad.Designer.cs">
+      <DependentUpon>frmResumenSensibilidad.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\frmHistorial.resx">
       <DependentUpon>frmHistorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\frmResumenSensibilidad.resx">
+      <DependentUpon>frmResumenSensibilidad.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

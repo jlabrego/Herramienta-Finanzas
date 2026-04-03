@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Data.SqlClient; // O Microsoft.Data.SqlClient
+using System.Data.SqlClient;
 using TryCash_Alternativas.Modelos;
-
+using System.Data;
 namespace TryCash_Alternativas.Datos
 {
     public class MetodosDatos
     {
         private string cadenaConexion = "Server=localhost;Database=TryCashDB;Trusted_Connection=True;";
+
 
         public void GuardarEscenario(Alternativa alt)
         {
@@ -19,7 +20,6 @@ namespace TryCash_Alternativas.Datos
 
                 try
                 {
-                    // 1. Insertar en la tabla Alternativas (Los 15 campos)
                     string sqlAlt = @"INSERT INTO Alternativas 
                         (nombre_alternativa, ramos_producidos, precio_venta_unitario, costo_insumos, 
                          numero_operarios, inversion_equipos, arrendamiento_mensual, duracion_cultivo_meses, 
@@ -46,7 +46,7 @@ namespace TryCash_Alternativas.Datos
 
                     int idGenerado = Convert.ToInt32(cmdAlt.ExecuteScalar());
 
-                    // 2. Insertar en ResultadosSensibilidad (Puntos g, h, i)
+                    // 2. Insertar en ResultadosSensibilidad
                     string sqlRes = @"INSERT INTO ResultadosSensibilidad 
                         (id_alternativa, utilidad_neta, rentabilidad_pct, gsp_ramos, gsp_precio, gsp_salario) 
                         VALUES 
@@ -62,11 +62,11 @@ namespace TryCash_Alternativas.Datos
 
                     cmdRes.ExecuteNonQuery();
 
-                    trans.Commit(); // Si todo salió bien, guardamos
+                    trans.Commit(); 
                 }
                 catch (Exception)
                 {
-                    trans.Rollback(); // Si algo falló, deshacemos los cambios
+                    trans.Rollback(); 
                     throw;
                 }
             }
@@ -76,7 +76,6 @@ namespace TryCash_Alternativas.Datos
             System.Data.DataTable tabla = new System.Data.DataTable();
             using (SqlConnection conn = new SqlConnection(cadenaConexion))
             {
-                // Hacemos un JOIN para ver la info de la alternativa y su resultado en una sola línea
                 string sql = @"SELECT A.id_alternativa AS ID, 
                               A.nombre_alternativa AS Escenario, 
                               A.ramos_producidos AS Ramos, 
@@ -117,7 +116,6 @@ namespace TryCash_Alternativas.Datos
 
                 try
                 {
-                    // Primero borrar resultados (por FK)
                     SqlCommand cmd1 = new SqlCommand(
                         "DELETE FROM ResultadosSensibilidad WHERE id_alternativa = @id",
                         conn, trans);
@@ -125,7 +123,6 @@ namespace TryCash_Alternativas.Datos
                     cmd1.Parameters.AddWithValue("@id", id);
                     cmd1.ExecuteNonQuery();
 
-                    // Luego borrar alternativa
                     SqlCommand cmd2 = new SqlCommand(
                         "DELETE FROM Alternativas WHERE id_alternativa = @id",
                         conn, trans);
@@ -141,6 +138,30 @@ namespace TryCash_Alternativas.Datos
                     throw;
                 }
             }
+        }
+        public DataTable ObtenerNombresEscenarios()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Nombre");
+            dt.Rows.Add("Básica");
+            dt.Rows.Add("Mejor calidad");
+            dt.Rows.Add("Exportar a Francia");
+            return dt;
+        }
+
+        public DataTable ObtenerTodosLosEscenarios()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Nombre");
+            dt.Columns.Add("GspRamos", typeof(decimal));
+            dt.Columns.Add("GspPrecio", typeof(decimal));
+            dt.Columns.Add("GspDevaluacion", typeof(decimal));
+            dt.Columns.Add("GspEmbalaje", typeof(decimal));
+            dt.Rows.Add("Básica", 6.74m, 8.01m, -0.12m, -1.24m);
+            dt.Rows.Add("Mejor calidad", 7.33m, 8.51m, -0.13m, -1.15m);
+            dt.Rows.Add("Exportar a Francia", 10.15m, 10.15m, 0.30m, -1.43m);
+
+            return dt;
         }
     }
 }

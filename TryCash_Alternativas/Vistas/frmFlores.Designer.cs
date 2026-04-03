@@ -77,6 +77,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.panelTitulo = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnVerResumen = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelTitulo.SuspendLayout();
@@ -111,7 +112,7 @@
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
             this.btnGuardar.ForeColor = System.Drawing.Color.Transparent;
-            this.btnGuardar.Location = new System.Drawing.Point(290, 874);
+            this.btnGuardar.Location = new System.Drawing.Point(222, 868);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(147, 48);
             this.btnGuardar.TabIndex = 21;
@@ -125,7 +126,7 @@
             this.btnCalcular.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCalcular.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCalcular.ForeColor = System.Drawing.Color.White;
-            this.btnCalcular.Location = new System.Drawing.Point(107, 874);
+            this.btnCalcular.Location = new System.Drawing.Point(55, 868);
             this.btnCalcular.Name = "btnCalcular";
             this.btnCalcular.Size = new System.Drawing.Size(155, 48);
             this.btnCalcular.TabIndex = 20;
@@ -495,7 +496,7 @@
             this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiar.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
             this.btnLimpiar.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiar.Location = new System.Drawing.Point(475, 874);
+            this.btnLimpiar.Location = new System.Drawing.Point(383, 868);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(141, 48);
             this.btnLimpiar.TabIndex = 30;
@@ -509,7 +510,7 @@
             this.btnVerHistorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerHistorial.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
             this.btnVerHistorial.ForeColor = System.Drawing.Color.White;
-            this.btnVerHistorial.Location = new System.Drawing.Point(889, 874);
+            this.btnVerHistorial.Location = new System.Drawing.Point(739, 868);
             this.btnVerHistorial.Name = "btnVerHistorial";
             this.btnVerHistorial.Size = new System.Drawing.Size(181, 48);
             this.btnVerHistorial.TabIndex = 31;
@@ -523,7 +524,7 @@
             this.btnPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPDF.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
             this.btnPDF.ForeColor = System.Drawing.Color.White;
-            this.btnPDF.Location = new System.Drawing.Point(657, 874);
+            this.btnPDF.Location = new System.Drawing.Point(540, 868);
             this.btnPDF.Name = "btnPDF";
             this.btnPDF.Size = new System.Drawing.Size(188, 48);
             this.btnPDF.TabIndex = 32;
@@ -595,7 +596,7 @@
             this.label15.ForeColor = System.Drawing.Color.DarkBlue;
             this.label15.Location = new System.Drawing.Point(27, 19);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(558, 48);
+            this.label15.Size = new System.Drawing.Size(548, 48);
             this.label15.TabIndex = 41;
             this.label15.Text = "SISTEMA TRYCASH - FLORES";
             // 
@@ -633,6 +634,20 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "RESULTADOS";
             // 
+            // btnVerResumen
+            // 
+            this.btnVerResumen.BackColor = System.Drawing.Color.CadetBlue;
+            this.btnVerResumen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerResumen.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
+            this.btnVerResumen.ForeColor = System.Drawing.Color.White;
+            this.btnVerResumen.Location = new System.Drawing.Point(934, 868);
+            this.btnVerResumen.Name = "btnVerResumen";
+            this.btnVerResumen.Size = new System.Drawing.Size(181, 48);
+            this.btnVerResumen.TabIndex = 45;
+            this.btnVerResumen.Text = "📑 Ver Resumen";
+            this.btnVerResumen.UseVisualStyleBackColor = false;
+            this.btnVerResumen.Click += new System.EventHandler(this.btnVerResumen_Click);
+            // 
             // frmFlores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -640,6 +655,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1266, 1010);
+            this.Controls.Add(this.btnVerResumen);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.panelTitulo);
             this.Controls.Add(this.btnPDF);
@@ -653,7 +669,6 @@
             this.Name = "frmFlores";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmFlores";
-            this.Load += new System.EventHandler(this.frmFlores_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -717,5 +732,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Panel panelTitulo;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button btnVerResumen;
     }
 }

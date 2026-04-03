@@ -61,7 +61,7 @@ namespace TryCash_Alternativas.Logica
         public decimal CalcularSensibilidadRamos(Alternativa alt, decimal porcentaje, decimal salario, decimal dolar, decimal area, decimal meses, decimal arriendoHec)
         {
             var copia = ClonarAlternativa(alt);
-            copia.RamosProducidos = (int)(alt.RamosProducidos * (1 + porcentaje));
+            copia.RamosProducidos = (alt.RamosProducidos * (1 + porcentaje));
             return CalcularUtilidad(copia, salario, 0.18m, 0.22m, dolar, 4130m, area, meses, arriendoHec);
         }
         public decimal CalcularSensibilidadSalario(Alternativa alt, decimal porcentajeSalario, decimal salarioBase, decimal dolar, decimal area, decimal meses, decimal arriendoHec)

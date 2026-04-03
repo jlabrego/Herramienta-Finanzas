@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvHistorial = new System.Windows.Forms.DataGridView();
             this.btnCargar = new System.Windows.Forms.Button();
             this.btnExportar = new System.Windows.Forms.Button();
@@ -50,20 +50,20 @@
             this.dgvHistorial.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvHistorial.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvHistorial.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvHistorial.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvHistorial.Location = new System.Drawing.Point(12, 92);
             this.dgvHistorial.Name = "dgvHistorial";
             this.dgvHistorial.ReadOnly = true;
             this.dgvHistorial.RowHeadersWidth = 51;
             this.dgvHistorial.RowTemplate.Height = 24;
-            this.dgvHistorial.Size = new System.Drawing.Size(1016, 432);
+            this.dgvHistorial.Size = new System.Drawing.Size(1084, 432);
             this.dgvHistorial.TabIndex = 0;
             // 
             // btnCargar
@@ -72,7 +72,7 @@
             this.btnCargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCargar.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
             this.btnCargar.ForeColor = System.Drawing.Color.White;
-            this.btnCargar.Location = new System.Drawing.Point(32, 547);
+            this.btnCargar.Location = new System.Drawing.Point(46, 545);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(191, 47);
             this.btnCargar.TabIndex = 1;
@@ -86,9 +86,9 @@
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
             this.btnExportar.ForeColor = System.Drawing.Color.White;
-            this.btnExportar.Location = new System.Drawing.Point(645, 547);
+            this.btnExportar.Location = new System.Drawing.Point(639, 547);
             this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(184, 47);
+            this.btnExportar.Size = new System.Drawing.Size(223, 47);
             this.btnExportar.TabIndex = 2;
             this.btnExportar.Text = "📗 Exportar a Excel";
             this.btnExportar.UseVisualStyleBackColor = false;
@@ -100,9 +100,9 @@
             this.btnComparar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnComparar.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
             this.btnComparar.ForeColor = System.Drawing.Color.White;
-            this.btnComparar.Location = new System.Drawing.Point(462, 547);
+            this.btnComparar.Location = new System.Drawing.Point(464, 547);
             this.btnComparar.Name = "btnComparar";
-            this.btnComparar.Size = new System.Drawing.Size(155, 47);
+            this.btnComparar.Size = new System.Drawing.Size(155, 45);
             this.btnComparar.TabIndex = 3;
             this.btnComparar.Text = "↔️ Comparar";
             this.btnComparar.UseVisualStyleBackColor = false;
@@ -114,7 +114,7 @@
             this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiar.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
             this.btnLimpiar.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiar.Location = new System.Drawing.Point(243, 549);
+            this.btnLimpiar.Location = new System.Drawing.Point(256, 545);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(191, 47);
             this.btnLimpiar.TabIndex = 4;
@@ -128,7 +128,7 @@
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminar.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
             this.btnEliminar.ForeColor = System.Drawing.Color.White;
-            this.btnEliminar.Location = new System.Drawing.Point(851, 549);
+            this.btnEliminar.Location = new System.Drawing.Point(878, 547);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(155, 43);
             this.btnEliminar.TabIndex = 39;
@@ -142,7 +142,7 @@
             this.panel1.Controls.Add(this.label15);
             this.panel1.Location = new System.Drawing.Point(0, 17);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1052, 59);
+            this.panel1.Size = new System.Drawing.Size(1116, 59);
             this.panel1.TabIndex = 40;
             // 
             // label15
@@ -161,7 +161,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1040, 631);
+            this.ClientSize = new System.Drawing.Size(1108, 631);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnLimpiar);
@@ -172,6 +172,7 @@
             this.Name = "frmHistorial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmHistorial";
+            this.Load += new System.EventHandler(this.frmHistorial_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

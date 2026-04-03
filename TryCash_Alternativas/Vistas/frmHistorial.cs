@@ -141,12 +141,18 @@ namespace TryCash_Alternativas.Vistas
                 }
 
                 MessageBox.Show("Registros eliminados correctamente.");
-                CargarDatos(); // refresca el grid
+                CargarDatos(); 
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al eliminar: " + ex.Message);
             }
+        }
+
+        private void frmHistorial_Load(object sender, EventArgs e)
+        {
+            dgvHistorial.Columns["Escenario"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvHistorial.Columns["Utilidad Neta"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
     }
 }
