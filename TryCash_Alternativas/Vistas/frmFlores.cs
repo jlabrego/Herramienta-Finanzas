@@ -129,6 +129,49 @@ namespace TryCash_Alternativas.Vistas
         }
         private void btnCalcular_Click(object sender, EventArgs e)
         {
+        }
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+        }
+        private void btnVerHistorial_Click(object sender, EventArgs e)
+        {
+        }
+        private void btnPDF_Click_1(object sender, EventArgs e)
+
+        {
+        }
+
+        private void frmFlores_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVerResumen_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void frmFlores_Load_1(object sender, EventArgs e)
+        {
+            toolTip1.AutoPopDelay = 5000; 
+            toolTip1.InitialDelay = 500;  
+            toolTip1.ReshowDelay = 200; 
+            toolTip1.ShowAlways = true;  
+
+            // Asignar los textos a tus PictureBoxes específicos
+            toolTip1.SetToolTip(this.pictureBox1, "Calcular");
+            toolTip1.SetToolTip(this.pictureBox2, "Guardar");
+            toolTip1.SetToolTip(this.pictureBox3, "Limpiar");
+            toolTip1.SetToolTip(this.pictureBox4, "Exportar PDF");
+            toolTip1.SetToolTip(this.pictureBox5, "Ver Historial");
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
             try
             {
                 var calculadora = new CalculadoraFinanciera();
@@ -251,25 +294,26 @@ namespace TryCash_Alternativas.Vistas
                 MessageBox.Show("Error en el cálculo: " + ex.Message);
             }
         }
-        private void btnGuardar_Click(object sender, EventArgs e)
+
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
             try
             {
                 var calculadora = new CalculadoraFinanciera();
-    Alternativa escenarioActual = new Alternativa
-    {
-        Nombre = cmbAlternativa.SelectedItem.ToString(),
-        RamosProducidos = int.Parse(txtRamos.Text),
-        PrecioVentaUnitario = decimal.Parse(txtPrecio.Text),
-        NumeroOperarios = int.Parse(txtOperarios.Text),
-        ComisionVentasPct = decimal.Parse(txtComision.Text),
-        CostoEmbalajeUnitario = decimal.Parse(txtEmbalaje.Text),
-        DevaluacionEsperada = decimal.Parse(txtDevaluacion.Text),
-        InversionEquipos = decimal.Parse(txtInversion.Text),
-        ArrendamientoMensual = decimal.Parse(txtArriendoHec.Text),
-        DuracionMeses = int.Parse(txtMeses.Text),
-        AreaHectareas = int.Parse(txtArea.Text)
-    };
+                Alternativa escenarioActual = new Alternativa
+                {
+                    Nombre = cmbAlternativa.SelectedItem.ToString(),
+                    RamosProducidos = int.Parse(txtRamos.Text),
+                    PrecioVentaUnitario = decimal.Parse(txtPrecio.Text),
+                    NumeroOperarios = int.Parse(txtOperarios.Text),
+                    ComisionVentasPct = decimal.Parse(txtComision.Text),
+                    CostoEmbalajeUnitario = decimal.Parse(txtEmbalaje.Text),
+                    DevaluacionEsperada = decimal.Parse(txtDevaluacion.Text),
+                    InversionEquipos = decimal.Parse(txtInversion.Text),
+                    ArrendamientoMensual = decimal.Parse(txtArriendoHec.Text),
+                    DuracionMeses = int.Parse(txtMeses.Text),
+                    AreaHectareas = int.Parse(txtArea.Text)
+                };
 
                 decimal salario = decimal.Parse(txtSalarioMin.Text);
                 decimal dolar = decimal.Parse(txtDolar.Text);
@@ -346,9 +390,9 @@ namespace TryCash_Alternativas.Vistas
             {
                 MessageBox.Show("Error al guardar: " + ex.Message);
             }
-}
+        }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void pictureBox3_Click(object sender, EventArgs e)
         {
             txtRamos.Clear();
             txtPrecio.Clear();
@@ -366,15 +410,9 @@ namespace TryCash_Alternativas.Vistas
             lblConclusion.Text = ".";
             txtRamos.Focus();
         }
-        private void btnVerHistorial_Click(object sender, EventArgs e)
-        {
-            frmHistorial ventana = new frmHistorial();
-            ventana.ShowDialog();
-        }
-        private void btnPDF_Click_1(object sender, EventArgs e)
 
+        private void pictureBox4_Click(object sender, EventArgs e)
         {
-            // 1. Creamos el cuadro de dialogo para guardar
             SaveFileDialog guardar = new SaveFileDialog();
             guardar.Filter = "Archivo PDF|*.pdf";
             guardar.Title = "Guardar Reporte de Evaluación";
@@ -387,26 +425,17 @@ namespace TryCash_Alternativas.Vistas
                 string gspTexto = lblGSP.Text.Replace("GSP Precio: ", "");
                 decimal gsp = decimal.Parse(gspTexto);
 
-                // 2. Llamamos al método pasándole la ruta que eligió el usuario
                 ExportarAPDF_ConRuta(nombre, utilidad, gsp, guardar.FileName);
 
             }
-
         }
 
-        private void frmFlores_Load(object sender, EventArgs e)
+        private void pictureBox5_Click(object sender, EventArgs e)
         {
-
+            frmHistorial ventana = new frmHistorial();
+            ventana.ShowDialog();
         }
 
-        private void btnVerResumen_Click(object sender, EventArgs e)
-        {
-            // 1. Instanciamos el formulario que diseñamos con el DataGridView gris
-            frmResumenSensibilidad pantallaGSP = new frmResumenSensibilidad();
-
-            // 2. Lo abrimos para que bloquee la ventana de atrás hasta que se cierre
-            pantallaGSP.ShowDialog();
-        }
     }
 
 }

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFlores));
             this.lblUtilidad = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.btnCalcular = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cmbAlternativa = new System.Windows.Forms.ComboBox();
             this.txtDevaluacion = new System.Windows.Forms.TextBox();
@@ -66,9 +66,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.lblGSP = new System.Windows.Forms.Label();
             this.Label = new System.Windows.Forms.Label();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnVerHistorial = new System.Windows.Forms.Button();
-            this.btnPDF = new System.Windows.Forms.Button();
             this.lblConclusion = new System.Windows.Forms.Label();
             this.lblGSPRent = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -77,11 +74,21 @@
             this.label15 = new System.Windows.Forms.Label();
             this.panelTitulo = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnVerResumen = new System.Windows.Forms.Button();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelTitulo.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblUtilidad
@@ -106,34 +113,6 @@
             this.label14.TabIndex = 22;
             this.label14.Text = "Resultado:";
             // 
-            // btnGuardar
-            // 
-            this.btnGuardar.BackColor = System.Drawing.Color.LightSalmon;
-            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardar.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
-            this.btnGuardar.ForeColor = System.Drawing.Color.Transparent;
-            this.btnGuardar.Location = new System.Drawing.Point(222, 868);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(147, 48);
-            this.btnGuardar.TabIndex = 21;
-            this.btnGuardar.Text = "💾 Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
-            // btnCalcular
-            // 
-            this.btnCalcular.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnCalcular.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCalcular.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCalcular.ForeColor = System.Drawing.Color.White;
-            this.btnCalcular.Location = new System.Drawing.Point(55, 868);
-            this.btnCalcular.Name = "btnCalcular";
-            this.btnCalcular.Size = new System.Drawing.Size(155, 48);
-            this.btnCalcular.TabIndex = 20;
-            this.btnCalcular.Text = "📊 Calcular";
-            this.btnCalcular.UseVisualStyleBackColor = false;
-            this.btnCalcular.Click += new System.EventHandler(this.btnCalcular_Click);
-            // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.White;
@@ -151,14 +130,14 @@
             this.groupBox2.Controls.Add(this.txtRamos);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Font = new System.Drawing.Font("Berlin Sans FB", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 10.8F);
             this.groupBox2.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.groupBox2.Location = new System.Drawing.Point(604, 147);
+            this.groupBox2.Location = new System.Drawing.Point(604, 182);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(568, 422);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "📦 DATOS DE LA ALTERNATIVA";
+            this.groupBox2.Text = "Datos de la Alternativa";
             // 
             // cmbAlternativa
             // 
@@ -187,7 +166,7 @@
             this.label13.ForeColor = System.Drawing.Color.Black;
             this.label13.Location = new System.Drawing.Point(20, 354);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(235, 26);
+            this.label13.Size = new System.Drawing.Size(214, 21);
             this.label13.TabIndex = 12;
             this.label13.Text = "Devaluación Esperada:";
             // 
@@ -205,7 +184,7 @@
             this.label7.ForeColor = System.Drawing.Color.Black;
             this.label7.Location = new System.Drawing.Point(20, 303);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(251, 26);
+            this.label7.Size = new System.Drawing.Size(224, 21);
             this.label7.TabIndex = 10;
             this.label7.Text = "Costo Embalaje Unitario:";
             // 
@@ -223,7 +202,7 @@
             this.label8.ForeColor = System.Drawing.Color.Black;
             this.label8.Location = new System.Drawing.Point(20, 252);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(197, 26);
+            this.label8.Size = new System.Drawing.Size(183, 21);
             this.label8.TabIndex = 8;
             this.label8.Text = "% Comisión Ventas:";
             // 
@@ -241,7 +220,7 @@
             this.label9.ForeColor = System.Drawing.Color.Black;
             this.label9.Location = new System.Drawing.Point(20, 192);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(227, 26);
+            this.label9.Size = new System.Drawing.Size(203, 21);
             this.label9.TabIndex = 6;
             this.label9.Text = "Número de Operarios:";
             // 
@@ -259,7 +238,7 @@
             this.label10.ForeColor = System.Drawing.Color.Black;
             this.label10.Location = new System.Drawing.Point(20, 144);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(170, 26);
+            this.label10.Size = new System.Drawing.Size(161, 21);
             this.label10.TabIndex = 4;
             this.label10.Text = "Precio de Venta:";
             // 
@@ -277,7 +256,7 @@
             this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(20, 97);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(194, 26);
+            this.label11.Size = new System.Drawing.Size(176, 21);
             this.label11.TabIndex = 2;
             this.label11.Text = "Ramos Producidos:";
             // 
@@ -287,7 +266,7 @@
             this.label12.ForeColor = System.Drawing.Color.Black;
             this.label12.Location = new System.Drawing.Point(20, 52);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(244, 26);
+            this.label12.Size = new System.Drawing.Size(218, 21);
             this.label12.TabIndex = 0;
             this.label12.Text = "Nombre de Alternativa:";
             // 
@@ -307,14 +286,14 @@
             this.groupBox1.Controls.Add(this.txtMeses);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Font = new System.Drawing.Font("Berlin Sans FB", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 10.8F);
             this.groupBox1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.groupBox1.Location = new System.Drawing.Point(35, 147);
+            this.groupBox1.Location = new System.Drawing.Point(35, 182);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(532, 422);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "📋 DATOS COMUNES";
+            this.groupBox1.Text = "Datos Comunes";
             // 
             // txtInversion
             // 
@@ -330,7 +309,7 @@
             this.label6.ForeColor = System.Drawing.Color.Black;
             this.label6.Location = new System.Drawing.Point(20, 303);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(183, 26);
+            this.label6.Size = new System.Drawing.Size(164, 21);
             this.label6.TabIndex = 10;
             this.label6.Text = "Inversión Equipos:";
             // 
@@ -348,7 +327,7 @@
             this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(20, 249);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 26);
+            this.label5.Size = new System.Drawing.Size(101, 21);
             this.label5.TabIndex = 8;
             this.label5.Text = "TRM Dólar:";
             // 
@@ -366,7 +345,7 @@
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(20, 199);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(160, 26);
+            this.label4.Size = new System.Drawing.Size(139, 21);
             this.label4.TabIndex = 6;
             this.label4.Text = "Salario Mínimo:";
             // 
@@ -384,7 +363,7 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(20, 144);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(298, 26);
+            this.label3.Size = new System.Drawing.Size(272, 21);
             this.label3.TabIndex = 4;
             this.label3.Text = "Arrendamiento por Hectárea:";
             // 
@@ -402,7 +381,7 @@
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(20, 97);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(182, 26);
+            this.label2.Size = new System.Drawing.Size(167, 21);
             this.label2.TabIndex = 2;
             this.label2.Text = "Área (Hectáreas):";
             // 
@@ -420,7 +399,7 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(20, 52);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(182, 26);
+            this.label1.Size = new System.Drawing.Size(166, 21);
             this.label1.TabIndex = 0;
             this.label1.Text = "Duración (meses):";
             // 
@@ -490,48 +469,6 @@
             this.Label.TabIndex = 28;
             this.Label.Text = "GPS Utilidad:";
             // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.BackColor = System.Drawing.Color.DarkKhaki;
-            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiar.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
-            this.btnLimpiar.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiar.Location = new System.Drawing.Point(383, 868);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(141, 48);
-            this.btnLimpiar.TabIndex = 30;
-            this.btnLimpiar.Text = "🧹 Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = false;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnVerHistorial
-            // 
-            this.btnVerHistorial.BackColor = System.Drawing.Color.OliveDrab;
-            this.btnVerHistorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerHistorial.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
-            this.btnVerHistorial.ForeColor = System.Drawing.Color.White;
-            this.btnVerHistorial.Location = new System.Drawing.Point(739, 868);
-            this.btnVerHistorial.Name = "btnVerHistorial";
-            this.btnVerHistorial.Size = new System.Drawing.Size(181, 48);
-            this.btnVerHistorial.TabIndex = 31;
-            this.btnVerHistorial.Text = "📁 Ver Historial";
-            this.btnVerHistorial.UseVisualStyleBackColor = false;
-            this.btnVerHistorial.Click += new System.EventHandler(this.btnVerHistorial_Click);
-            // 
-            // btnPDF
-            // 
-            this.btnPDF.BackColor = System.Drawing.Color.IndianRed;
-            this.btnPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPDF.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
-            this.btnPDF.ForeColor = System.Drawing.Color.White;
-            this.btnPDF.Location = new System.Drawing.Point(540, 868);
-            this.btnPDF.Name = "btnPDF";
-            this.btnPDF.Size = new System.Drawing.Size(188, 48);
-            this.btnPDF.TabIndex = 32;
-            this.btnPDF.Text = "📄 Exportar a PDF";
-            this.btnPDF.UseVisualStyleBackColor = false;
-            this.btnPDF.Click += new System.EventHandler(this.btnPDF_Click_1);
-            // 
             // lblConclusion
             // 
             this.lblConclusion.AutoSize = true;
@@ -594,7 +531,7 @@
             this.label15.BackColor = System.Drawing.Color.White;
             this.label15.Font = new System.Drawing.Font("Britannic Bold", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label15.Location = new System.Drawing.Point(27, 19);
+            this.label15.Location = new System.Drawing.Point(25, 24);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(548, 48);
             this.label15.TabIndex = 41;
@@ -604,7 +541,7 @@
             // 
             this.panelTitulo.BackColor = System.Drawing.Color.White;
             this.panelTitulo.Controls.Add(this.label15);
-            this.panelTitulo.Location = new System.Drawing.Point(0, 20);
+            this.panelTitulo.Location = new System.Drawing.Point(2, 62);
             this.panelTitulo.Name = "panelTitulo";
             this.panelTitulo.Size = new System.Drawing.Size(1282, 84);
             this.panelTitulo.TabIndex = 43;
@@ -625,28 +562,71 @@
             this.groupBox3.Controls.Add(this.label18);
             this.groupBox3.Controls.Add(this.lblGSP);
             this.groupBox3.Controls.Add(this.Label);
-            this.groupBox3.Font = new System.Drawing.Font("Berlin Sans FB", 13.8F);
+            this.groupBox3.Font = new System.Drawing.Font("Century Gothic", 10.8F);
             this.groupBox3.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.groupBox3.Location = new System.Drawing.Point(35, 592);
+            this.groupBox3.Location = new System.Drawing.Point(35, 627);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(1137, 250);
             this.groupBox3.TabIndex = 44;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "RESULTADOS";
+            this.groupBox3.Text = "Resultados";
             // 
-            // btnVerResumen
+            // pictureBox5
             // 
-            this.btnVerResumen.BackColor = System.Drawing.Color.CadetBlue;
-            this.btnVerResumen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerResumen.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F);
-            this.btnVerResumen.ForeColor = System.Drawing.Color.White;
-            this.btnVerResumen.Location = new System.Drawing.Point(934, 868);
-            this.btnVerResumen.Name = "btnVerResumen";
-            this.btnVerResumen.Size = new System.Drawing.Size(181, 48);
-            this.btnVerResumen.TabIndex = 45;
-            this.btnVerResumen.Text = "📑 Ver Resumen";
-            this.btnVerResumen.UseVisualStyleBackColor = false;
-            this.btnVerResumen.Click += new System.EventHandler(this.btnVerResumen_Click);
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Location = new System.Drawing.Point(166, 12);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(33, 30);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox5.TabIndex = 50;
+            this.pictureBox5.TabStop = false;
+            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(127, 12);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(33, 30);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 49;
+            this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(88, 12);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(33, 30);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 48;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(49, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(33, 30);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 47;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.AccessibleName = "Calcular";
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(10, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(33, 30);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 46;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Tag = "";
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // frmFlores
             // 
@@ -654,21 +634,21 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1266, 1010);
-            this.Controls.Add(this.btnVerResumen);
+            this.ClientSize = new System.Drawing.Size(1266, 830);
+            this.Controls.Add(this.pictureBox5);
+            this.Controls.Add(this.pictureBox4);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.panelTitulo);
-            this.Controls.Add(this.btnPDF);
-            this.Controls.Add(this.btnVerHistorial);
-            this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.btnCalcular);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmFlores";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmFlores";
+            this.Load += new System.EventHandler(this.frmFlores_Load_1);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -677,6 +657,11 @@
             this.panelTitulo.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -685,8 +670,6 @@
 
         private System.Windows.Forms.Label lblUtilidad;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.Button btnCalcular;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtDevaluacion;
         private System.Windows.Forms.Label label13;
@@ -720,9 +703,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label lblGSP;
         private System.Windows.Forms.Label Label;
-        private System.Windows.Forms.Button btnLimpiar;
-        private System.Windows.Forms.Button btnVerHistorial;
-        private System.Windows.Forms.Button btnPDF;
         private System.Windows.Forms.ComboBox cmbAlternativa;
         private System.Windows.Forms.Label lblConclusion;
         private System.Windows.Forms.Label lblGSPRent;
@@ -732,6 +712,11 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Panel panelTitulo;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btnVerResumen;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

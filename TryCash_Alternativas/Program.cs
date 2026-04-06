@@ -17,7 +17,7 @@ namespace TryCash_Alternativas
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmFlores());
+            Application.Run(new frmMenuPrincipal());
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 using TryCash_Alternativas.Datos;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TryCash_Alternativas.Vistas
 {
@@ -153,6 +154,145 @@ namespace TryCash_Alternativas.Vistas
         {
             dgvHistorial.Columns["Escenario"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgvHistorial.Columns["Utilidad Neta"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            toolTip1.AutoPopDelay = 5000; 
+            toolTip1.InitialDelay = 500;  
+            toolTip1.ReshowDelay = 200;   
+            toolTip1.ShowAlways = true;   
+
+            toolTip1.SetToolTip(this.pictureBox1, "Actualizar Tabla");
+            toolTip1.SetToolTip(this.pictureBox2, "Limpiar");
+            toolTip1.SetToolTip(this.pictureBox3, "Comparar");
+            toolTip1.SetToolTip(this.pictureBox4, "Exportar Excel");
+            toolTip1.SetToolTip(this.pictureBox5, "Eliminar");
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            CargarDatos();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Seguro que deseas reiniciar todo? Se borrarán Alternativas y Resultados.",
+                "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                try
+                {
+                    db.LimpiarHistorial();
+                    CargarDatos(); 
+                    MessageBox.Show("Base de datos reiniciada con éxito.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            if (dgvHistorial.SelectedRows.Count < 2)
+            {
+                MessageBox.Show("Por favor, selecciona al menos 2 escenarios.");
+                return;
+            }
+
+            string comparativa = "=== DIAGNÓSTICO COMPARATIVO TRYCASH ===\n\n";
+
+            decimal mejorRentabilidad = 0;
+            string mejorNombre = "";
+
+            foreach (DataGridViewRow row in dgvHistorial.SelectedRows)
+            {
+                string nombre = row.Cells["Escenario"].Value?.ToString() ?? "Sin nombre";
+                decimal utilidad = Convert.ToDecimal(row.Cells["Utilidad Neta"].Value);
+                decimal rentabilidad = Convert.ToDecimal(row.Cells["% Rentabilidad"].Value);
+                decimal gspPrecio = Convert.ToDecimal(row.Cells["GSP Precio"].Value);
+
+                comparativa += $"Alternativa: {nombre}\n";
+                comparativa += $"Utilidad: {utilidad:C2}\n";
+                comparativa += $"Rentabilidad: {rentabilidad:N2}%\n";
+                comparativa += $"GSP Precio: {gspPrecio:N2}\n";
+
+                if (rentabilidad >= 10)
+                    comparativa += "- Cumple con la rentabilidad mínima\n";
+                else
+                    comparativa += "- No cumple con la rentabilidad mínima\n";
+
+                comparativa += "--------------------------------------\n";
+                if (rentabilidad > mejorRentabilidad)
+                {
+                    mejorRentabilidad = rentabilidad;
+                    mejorNombre = nombre;
+                }
+            }
+            comparativa += "\n=== CONCLUSIÓN ===\n";
+            comparativa += $"La mejor alternativa es: {mejorNombre} ({mejorRentabilidad:N2}%)\n";
+
+            MessageBox.Show(comparativa, "Comparación de Escenarios");
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            if (dgvHistorial.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para exportar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "Excel Workbook|*.xlsx";
+            saveDialog.FileName = "Historial_Evaluaciones_TryCash_" + DateTime.Now.ToString("yyyyMMdd");
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (var workbook = new XLWorkbook())
+                    {
+                        DataTable dt = (DataTable)dgvHistorial.DataSource;
+                        var worksheet = workbook.Worksheets.Add(dt, "Escenarios");
+                        worksheet.Columns().AdjustToContents();
+
+                        workbook.SaveAs(saveDialog.FileName);
+                    }
+                    MessageBox.Show("Reporte Excel generado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al crear el archivo Excel: " + ex.Message);
+                }
+            }
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            if (dgvHistorial.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecciona al menos una fila.");
+                return;
+            }
+
+            if (MessageBox.Show("¿Seguro que deseas eliminar los registros seleccionados?",
+                "Confirmar", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            try
+            {
+                foreach (DataGridViewRow row in dgvHistorial.SelectedRows)
+                {
+                    int id = Convert.ToInt32(row.Cells["ID"].Value);
+                    db.EliminarEscenario(id);
+                }
+
+                MessageBox.Show("Registros eliminados correctamente.");
+                CargarDatos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar: " + ex.Message);
+            }
         }
     }
 }

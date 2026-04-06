@@ -95,15 +95,27 @@ namespace TryCash_Alternativas.Datos
         }
         public void LimpiarHistorial()
         {
-            using (SqlConnection conn = new SqlConnection(cadenaConexion))
+            using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
-                conn.Open();
+                conexion.Open();
+                SqlTransaction trans = conexion.BeginTransaction();
+                try
+                {
+                    string query = @"
+                DELETE FROM ResultadosSensibilidad;
+                DELETE FROM Alternativas;
+                DBCC CHECKIDENT ('ResultadosSensibilidad', RESEED, 0);
+                DBCC CHECKIDENT ('Alternativas', RESEED, 0);";
 
-                SqlCommand cmd = new SqlCommand(@"
-            DELETE FROM ResultadosSensibilidad;
-            DELETE FROM Alternativas;", conn);
-
-                cmd.ExecuteNonQuery();
+                    SqlCommand cmd = new SqlCommand(query, conexion, trans);
+                    cmd.ExecuteNonQuery();
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw new Exception("Error crítico al limpiar la base de datos: " + ex.Message);
+                }
             }
         }
         public void EliminarEscenario(int id)
